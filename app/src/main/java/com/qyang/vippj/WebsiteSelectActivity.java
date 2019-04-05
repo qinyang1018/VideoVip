@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qyang.vippj.adapter.WebsiteSelectAdapter;
+import com.qyang.vippj.myapplication.BuildConfig;
 import com.qyang.vippj.myapplication.R;
 import com.qyang.vippj.utils.SpaceItemDecoration;
 import com.qyang.vippj.utils.StatusBarUtil;
@@ -65,6 +66,8 @@ public class WebsiteSelectActivity extends AppCompatActivity {
         mTitleToolBar = findViewById(R.id.title_tool_bar);
         mTvGunTitle = findViewById(R.id.tv_gun_title);
         mRecycle = findViewById(R.id.recycle);
+        TextView tvVersion = findViewById(R.id.tv_version);
+        tvVersion.setText(String.format("❤版本：v%s", BuildConfig.VERSION_NAME));
 
         mRecycle.setLayoutManager(new GridLayoutManager(this, 3));
         mRecycle.addItemDecoration(new SpaceItemDecoration(10));
