@@ -7,10 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -31,6 +27,11 @@ import com.qyang.vippj.config.MyWebViewClient;
 import com.qyang.vippj.myapplication.R;
 import com.qyang.vippj.utils.StatusBarUtil;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
 
@@ -49,7 +50,10 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
     private String mTitle;
 
 
-    private final static String PJ_URL = "https://jx.618g.com/?url=";
+    //    private final static String PJ_URL = "http://jx.618g.com/?url=";
+//    private final static String PJ_URL = "https://api.smq1.com/?url=";
+//    private final static String PJ_URL = "http://api.baiyug.cn/vip/index.php?url=";
+    private final static String PJ_URL = "http://vip.wandhi.com/?v=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +123,13 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 //                break;
             case R.id.actionbar_open://
                 tvGunTitle.setText(webView.getTitle());
-                webView.loadUrl(PJ_URL + webView.getUrl());
+                String url=PJ_URL + webView.getUrl();
+                webView.loadUrl(url);
+                Log.d("log",url);
+//                Intent intent = new Intent(WebViewActivity.this, PlayerActivity.class);
+//                intent.putExtra("url",  webView.getUrl());
+//                intent.putExtra("title", webView.getTitle());
+//                startActivity(intent);
                 break;
             case R.id.actionbar_webview_refresh:// 刷新页面
                 if (webView != null) {
@@ -167,6 +177,10 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
         // webview从5.0开始默认不允许混合模式,https中不能加载http资源,需要设置开启。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ws.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
         }
         /** 设置字体默认缩放大小(改变网页字体大小,setTextSize  api14被弃用)*/
         ws.setTextZoom(100);
